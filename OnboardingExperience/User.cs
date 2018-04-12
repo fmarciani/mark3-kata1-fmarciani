@@ -7,6 +7,7 @@ namespace OnboardingExperience
     class User
     {
 
+        public string YesOrNo { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public int Age { get; set; }
