@@ -6,7 +6,6 @@ namespace OnboardingExperience
 {
     class User
     {
-
         public bool IsAccountOwner { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -14,6 +13,5 @@ namespace OnboardingExperience
         public int Age { get; set; }
         public int PIN { get; set; }
         public string SecurePhrase { get; set; }
-
     }
 }

@@ -4,7 +4,7 @@ namespace OnboardingExperience
 {
     class Program
     {
-        public static void Main(string[] args)
+        static void Main(string[] args)
         {
             var user = new User();
 
@@ -12,7 +12,9 @@ namespace OnboardingExperience
 
             if (!user.IsAccountOwner)
             {
-                Environment.Exit(-1);
+                Console.WriteLine("\nSorry! Only account owners can set up their accounts online. Press any key to exit the app.");
+                Console.ReadKey(true);
+                return;
             }
 
             user.FirstName = AskQuestion("\nGreat! Let's get your account set up. What's your first name?");
@@ -31,13 +33,15 @@ namespace OnboardingExperience
             Console.ReadKey(true);
 
             user.SecurePhrase = AskQuestion($"\nHuff, puff; we're almost done here! Final round: Let's add a security phrase to your account. It can be anything, but\nyou'll have to type it EXACTLY the way you do here each time you log in. You've got this, {user.FirstName}. Go ahead and enter your\nphrase below.");
-            Console.WriteLine($"\nHey, hey! Look who's good to go. Don't worry, we're done getting personal. Thanks again for choosing IntelliBank! Press\nany key to exit the app.");
+            Console.WriteLine($"\nHey, hey! Look who's good to go. Don't worry, we're done getting personal. Thanks again for choosing IntelliBank!");
+
+            Console.WriteLine("\nPress any key to exit!");
             Console.ReadKey(true);
-            Environment.Exit(-1);
         }
 
         public static bool AskBoolQuestion(string question)
         {
+            // While method is engaged, it responds to questions about whether the app user is the account owner or not.
             while (true)
             {
                 Console.WriteLine(question);
@@ -47,10 +51,10 @@ namespace OnboardingExperience
                 {
                     return true;
                 }
+
+                // If the user isn't the account owner, they're prompted to press a key and terminate the app.
                 else if (response == "n" || response == "no")
                 {
-                    Console.WriteLine("\nSorry! Only account owners can set up their accounts online. Press any key to exit the app.");
-                    Console.ReadKey(true);
                     return false;
                 }
                 else
@@ -65,6 +69,7 @@ namespace OnboardingExperience
             Console.WriteLine(question);
             var answer = Console.ReadLine();
 
+            // For all those users who think they can get past me by throwing me blank answers.
             if (answer.Length == 0)
             {
                 return "Doot";
@@ -78,15 +83,20 @@ namespace OnboardingExperience
 
         public static int AskIntQuestion(string question, int length = 0)
         {
+            // While the method is engaged, it responds to either questions about age or PIN by parsing numbers from strings.
             while (true)
             {
                 var answer = AskQuestion(question);
 
+                // If a number can't be parsed from the string, the program presses for a number.
                 if (!Int32.TryParse(answer, out var number))
                 {
                     Console.WriteLine("\nOops! We need a number.");
                     continue;
                 }
+
+                /* If the number doesn't equal the exact number of digits specified when the method is called, the user is
+                prompted to enter an answer with the correct digit length. */
                 if (length > 0 && answer.Length != length)
                 {
                     Console.WriteLine($"\nOops, you didn't enter the correct length! You need {length} digits. Go ahead and try again.");
