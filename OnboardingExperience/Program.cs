@@ -30,7 +30,7 @@ namespace OnboardingExperience
             Console.ReadKey(true);
 
             user.SecurePhrase = AskQuestion($"\nHuff, puff; we're almost done here! Final round: Let's add a security phrase to your account for extra security! It can be anything (again, we won't tell), but you'll have to type it EXACTLY the way you do here each time you log in. You've got this, {user.FirstName}. Go ahead and enter your phrase below.");
-            Console.WriteLine("\nHey, hey! Look who's good to go. We've got your name, age, PIN, and security phrase. We won't get more personal than that. Thanks again for banking with IntelliBank! Press any key to exit the app.");
+            Console.WriteLine($"\nHey, hey! Look who's good to go. We've got your name, age, PIN, and security phrase ({user.SecurePhrase}), in case you forgot). We won't get more personal than that. Thanks again for banking with IntelliBank! Press any key to exit the app.");
             Console.ReadKey(true);
             Environment.Exit(-1);
         }
@@ -64,7 +64,17 @@ namespace OnboardingExperience
         public static string AskQuestion(string question)
         {
             Console.WriteLine(question);
-            return Console.ReadLine();
+            var answer = Console.ReadLine();
+
+            if (answer.Length == 0)
+            {
+                return "Julian McBoolean";
+            }
+
+            else
+            {
+                return answer;
+            }
         }
 
         public static int AskIntQuestion(string question, int length = 0)
@@ -78,8 +88,7 @@ namespace OnboardingExperience
                     Console.WriteLine("\nOops! We need a number.");
                     continue;
                 }
-                //if (length > 0 && answer.Length != length)
-                if (length > 0 && answer.Length < length || answer.Length > length)
+                if (length > 0 && answer.Length != length)
                 {
                     Console.WriteLine($"\nOops, you didn't enter the correct length! You need {length} digits. Go ahead and try again.");
                     continue;
